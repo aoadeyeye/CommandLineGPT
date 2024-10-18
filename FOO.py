@@ -2,8 +2,8 @@ import os
 import openai
 import anthropic
 import json
-from PyQt5.QtWidgets import QApplication, QWidget, QTextEdit, QPushButton, QVBoxLayout, QHBoxLayout, QLineEdit, QLabel
-from PyQt5.QtCore import Qt, QThread, pyqtSignal
+from PyQt5.QtWidgets import QApplication, QWidget, QTextEdit, QPushButton, QVBoxLayout, QHBoxLayout, QLineEdit, QLabel # type: ignore
+from PyQt5.QtCore import Qt, QThread, pyqtSignal # type: ignore
 
 # Worker thread for processing LLM responses
 class LLMWorker(QThread):

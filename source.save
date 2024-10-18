@@ -1,0 +1,12 @@
+ "modelLeft": "gpt-4o",
+ "modelRight": "claude-3-opus-20240229",
+"nameLeft": "OpenAI GPT-4o",
+ "nameRight": "Anthropic Claude-3-opus-20240229"
+/Users/aareilorioosha/CommandLineGPT/.venv/bin/python /Users/aareilorioosha/CommandLineGPT/FOO.py
+python -m pip install anthropic
+/Users/aareilorioosha/CommandLineGPT/.venv/bin/python /Users/aareilorioosha/CommandLineGPT/FOO.py
+FOO
+^X/Users/aareilorioosha/CommandLineGPT/.venv/bin/python /Users/aareilorioosha/CommandLineGPT/FOO.py
+
+/Users/aareilorioosha/CommandLineGPT/.venv/bin/python /Users/aareilorioosha/CommandLineGPT/FOO.py
+
