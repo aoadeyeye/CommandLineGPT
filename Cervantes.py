@@ -5,8 +5,8 @@ import json
 
 class OpenAIChatbot:
     def __init__(self, config):
-        self.instructions = config['instructions']
-        self.model = config['model']
+       # self.instructions = config['instructions']
+        self.model = config['model_code']
         self.temperature = config['temperature']
 
         # Initialize the API key
@@ -23,7 +23,7 @@ class OpenAIChatbot:
 class ClaudeAgent:
     def __init__(self, config):
         self.client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
-        self.model = config['model']
+        self.model = config['model_code']
         self.temperature = config['temperature']
 
     def get_response(self, prompt):
