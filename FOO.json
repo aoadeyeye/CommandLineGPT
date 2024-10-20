@@ -49,7 +49,7 @@
         {"request": "Why should individuals of Hispanic origin read Don Quixote?", "instructions": "", "output_length": 2000, "file_name": "q34.tex", "iterations": 5},
         {"request": "Did Don Quixote influence how we talk or converse with each other?", "instructions": "", "output_length": 2000, "file_name": "q35.tex", "iterations": 5},
         {"request": "How did Cervantes influence other Spanish writers?", "instructions": "", "output_length": 2000, "file_name": "q36.tex", "iterations": 5},
-        {"request": "How did Cervantes influence authors with Spanish surnames?", "instructions": "", "output_length": 2000, "file_name": "q37.tex", "iterations": 5},
+        {"request": "How did Cervantes influence authors with Spanish surnames?", "instructions": "", "output_length": 2000, "file_name": "q37.tex", "iterations": 5}
     ]    
 }
   
