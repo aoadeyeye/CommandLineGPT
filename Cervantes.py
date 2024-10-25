@@ -1,32 +1,95 @@
-import os
+#import os
 import openai
 import anthropic
 import json
 
+with open('config.json') as f:
+    config = json.load(f)
+class OpenAIChatbot:
+    def __init__(self):
+        # Load the configuration file
+        try:
+            with open('/Users/aareilorioosha/CommandLineGPT/config.json', 'r') as file:
+                config = json.load(file)
+                print(config)  # Display the content of the config for debugging
+        except FileNotFoundError:
+            print("Error: The config file was not found.")
+            config = {}
+        except json.JSONDecodeError:
+            print("Error: Failed to parse the config file.")
+            config = {}
+
+        # Safely access the instructions and model keys with default values
+        self.instructions = config.get('instructions', 'default_instructions')
+        self.model = config.get('model', 'default_model')
+#import json
+
 # OpenAIChatbot uses the latest OpenAI API version based on Helper.py
 class OpenAIChatbot:
-    def __init__(self, config):
-        self.instructions = config['instructions']
-        self.model = config['model']
-        self.temperature = config['temperature']
+    def __init__(self, model, config):
+        self.model = model
+        self.instructions = config.get('instructions', 'default_value')
+        self.temperature = config.get('temperature', 1.0)
+        # Initialize other attributes as needed
+
+def main():
+    # Define your configuration dictionary
+    config = {
+        'instructions': 'You are very helpful',
+        'temperature': 1.0,  # Include the temperature key with a default value
+        # Add other configuration settings as needed
+    }
+
+    # Define the model (adjust based on your use case)
+    model = "gpt-4o"  # For OpenAI API
+
+    # Pass the config to the OpenAIChatbot
+    agent = OpenAIChatbot(model, config)
+#class OpenAIChatbot:
+   # def __init__(self, model, config):
+    #def __init__(self, config):
+       # self.model = model
+        #self.instructions = config.get('instructions','default_value')
+        #self.temperature = config.get('temperature', 1.0)
+        #self.model = model
+        #self.model = config['model']
+        
+        # Check for 'temperature' key and provide a default if missing
+        #if 'temperature' not in config:
+           # print("Warning: 'temperature' key not found in config, using default value of 1.0")
+        
 
         # Initialize the OpenAI API key
-        openai.api_key = os.getenv("OPENAI_API_KEY")
-        if not openai.api_key:
+    openai.api_key = os.getenv("OPENAI_API_KEY")
+    if not openai.api_key:
             print("API key is not set. Please set the OPENAI_API_KEY environment variable.")
             exit(1)
 
         # Initialize client and thread, assuming the assistant creation part is correct based on Helper.py
-        self.client = openai.OpenAI()
+            self.client = openai.OpenAI()
 
         # Create an Assistant and a Thread for interactions
-        self.assistant = self.client.beta.assistants.create(
+            self.assistant = self.client.beta.assistants.create(
             model=self.model,
             instructions="You are a helpful assistant.",  # You can update this or read from the config if needed
             name="OpenAI Assistant",
             tools=[{"type": "file_search"}]
         )
-        self.thread = self.client.beta.threads.create()
+            self.thread = self.client.beta.threads.create()
+    
+    #def main():
+    # Define your configuration dictionary
+        #config = {
+           # 'instructions': 'You are a helpful assistance',
+            #'temperature': 1.0,  # Include the temperature key with a default value
+            # Add other configuration settings as needed
+   # }
+
+    # Ensure model is defined before using it
+    #model = "gpt-4o"  # Replace with your actual model initialization
+
+    # Pass the config to the OpenAIChatbot
+    #agent = OpenAIChatbot(model, config)
 
     def get_response(self, prompt):
         try:
@@ -65,11 +128,34 @@ class OpenAIChatbot:
 
 # ClaudeAgent uses the updated syntax for Anthropic's Claude API, based on ClaudeChatUL.py
 class ClaudeAgent:
-    def __init__(self, config):
-        self.client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
-        self.model = config['model_code']
-        self.temperature = config['temperature']
+    def __init__(self, model, config):
+        self.model = model
+        self.temperature = config.get('temperature', 1.0)  # Default value if not found
+        self.instructions = config.get('instructions', 'default instructions')
 
+def main():
+    # Define your configuration dictionary
+    config = {
+        'instructions': 'You are very hepful',
+        'temperature': 1.0,  # Ensure this key exists
+    }
+
+    # Set the OpenAI API key
+    openai.api_key = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+    #openai.api_key = os.getenv("OPENAI_API_KEY")
+
+    # Define the model (adjust based on your use case)
+    model = "gpt-3.5-turbo"  # For OpenAI API
+
+    # Create an instance of ClaudeAgent, passing config
+    agent = ClaudeAgent(model, config)
+    
+#class ClaudeAgent:
+    #def __init__(self, config):
+    #self.client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+       # self.model = config['model_code']
+        #self.temperature = config['temperature']
+#
     def get_response(self, prompt):
         try:
             # Send the message to Claude and get the response
@@ -101,7 +187,7 @@ def main():
         if "claude" in model["model_name"].lower():
             agent = ClaudeAgent(model)
         else:
-            agent = OpenAIChatbot(model)
+            agent = OpenAIChatbot(model, config)
         agents.append(agent)
 
     # Loop through each task
